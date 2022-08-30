@@ -1,16 +1,31 @@
 package com.mugivara.mydiary;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Record {
+public class Record implements Serializable {
+
+    private long id;
     private String title;
     private String text;
-    private Date date;
+    private long date;
 
-    public Record(String title, String text, Date date) {
+    public Record(long id, String title, String text, Date date) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.date = date.getTime();
+    }
+
+    public Record(long id, String title, String text, long date) {
+        this.id = id;
         this.title = title;
         this.text = text;
         this.date = date;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -30,11 +45,15 @@ public class Record {
         this.text = text;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
     public void setDate(Date date) {
+        this.date = date.getTime();
+    }
+
+    public void setDate(long date) {
         this.date = date;
     }
 }

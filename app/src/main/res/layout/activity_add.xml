@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:inputType="textPersonName"
+                android:hint="Title"
+                android:id="@+id/editText_Title"
+                android:layout_weight="1"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            <TextView
+                    android:hint="Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:inputType="date"
+                    android:id="@+id/textView_Date"
+                    android:layout_weight="7"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/button_Date"
+                    android:src="@drawable/ic_calendar">
+            </ImageButton>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="12">
+        <EditText
+
+                android:hint="Text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textMultiLine"
+                android:gravity="start|top"
+                android:ems="10"
+                android:id="@+id/editText_Text"
+                />
+    </LinearLayout>
+    <RelativeLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1">
+        <Button
+                android:id="@+id/button_Chanel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Button_Chanel_Text"
+                android:layout_alignParentLeft="true"/>
+        <Button
+                android:id="@+id/button_Save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_Save_text"
+                android:layout_alignParentRight="true"
+        />
+    </RelativeLayout>
+
+
+</LinearLayout>
