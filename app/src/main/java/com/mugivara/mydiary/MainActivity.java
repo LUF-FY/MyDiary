@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
             if (requestCode == UPDATE_ACTIVITY)
                 mDBConnector.update(record);
             else
-                mDBConnector.insert(record.getTitle(), record.getText(), record.getCalendarInMillis());
+                mDBConnector.insert(record.getTitle(), record.getText(), record.getDate());
             updateList();
         }
     }
@@ -185,17 +185,23 @@ public class MainActivity extends Activity {
         }
     
         public View getView(int position, View convertView, ViewGroup parent) {
+    
             if (convertView == null)
                 convertView = mLayoutInflater.inflate(R.layout.item, null);
-
-            TextView vTitle = (TextView) convertView.findViewById(R.id.title);
-            TextView vText = (TextView) convertView.findViewById(R.id.text);
-            TextView vDate = (TextView) convertView.findViewById(R.id.date);
+    
+            TextView vTitle= (TextView)convertView.findViewById(R.id.title);
+            TextView vText = (TextView)convertView.findViewById(R.id.text);
+            TextView vDate=(TextView)convertView.findViewById(R.id.date);
+    
     
             Record record = arrayMyRecords.get(position);
             vTitle.setText(record.getTitle());
             vText.setText(record.getText());
-            DateConverter.setInitialDate(convertView.getContext(),vDate, record.getCalendar());
+
+            //Toast.makeText(parent.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
+            DateConverter.setInitialDate(parent.getContext(), vDate, record.getDate());
+
+            //Toast.makeText(parent.getContext(), record.getDate() + ", " + String.valueOf(new Date(record.getDate()).getTime()) + ", " + calendar.getTimeInMillis(), Toast.LENGTH_LONG).show();
             return convertView;
         }
     } // end myAdapter

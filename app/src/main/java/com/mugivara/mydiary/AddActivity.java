@@ -9,6 +9,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import kotlin.jvm.Throws;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +27,8 @@ public class AddActivity extends Activity {
     private ImageButton ibtDate;
     private long MyRecordID;
 
-    private Calendar calendar;
+
+    private Calendar calendar = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,17 +50,15 @@ public class AddActivity extends Activity {
             //tvDate.setText(DateConverter.fromMilicToDate(record.getDate()));
             MyRecordID=record.getId();
 
-            calendar = record.getCalendar();
+            calendar.setTime(new Date(record.getDate()));
 
         }
         else
         {
-            calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
             MyRecordID=-1;
         }
         DateConverter.setInitialDate(context, tvDate, calendar);
-//        setInitialDate();
+
 
 
         ibtDate.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,6 @@ public class AddActivity extends Activity {
                                         calendar.set(Calendar.MONTH, monthOfYear);
                                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                                         DateConverter.setInitialDate(context, tvDate, calendar);
-//                                        setInitialDate();
                                     }
                                 },
                                 calendar.get(Calendar.YEAR),
@@ -81,8 +80,6 @@ public class AddActivity extends Activity {
                         ).show();
 //                        Log.d(AddActivity.TAG, context.toString());
                         DateConverter.setInitialDate(context, tvDate, calendar);
-
-//                        setInitialDate();
                     }
         });
 
@@ -95,8 +92,10 @@ public class AddActivity extends Activity {
                 Record record=new Record(MyRecordID, etTitle.getText().toString(),etText.getText().toString(), calendar.getTimeInMillis());
                 Intent intent=getIntent();
                 intent.putExtra("Record",record);
+
+                //Toast.makeText(v.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
+
                 setResult(RESULT_OK,intent);
-                //Log.d("recordddd", record.getText() + record.getTitle() + String.valueOf(record.getDate()));
                 finish();
 
             }
@@ -114,11 +113,5 @@ public class AddActivity extends Activity {
     protected void onStart() {
 
         super.onStart();
-    }
-
-    private void setInitialDate(){
-        tvDate.setText(DateUtils.formatDateTime(context,
-                calendar.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 }

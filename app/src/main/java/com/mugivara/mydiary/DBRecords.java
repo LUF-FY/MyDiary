@@ -43,7 +43,7 @@ public class DBRecords {
         ContentValues cv=new ContentValues();
         cv.put(COLUMN_TITLE, record.getTitle());
         cv.put(COLUMN_TEXT, record.getText());
-        cv.put(COLUMN_DATE, record.getCalendarInMillis());
+        cv.put(COLUMN_DATE, record.getDate());
         return mDataBase.update(TABLE_NAME, cv, COLUMN_ID + " = ?",new String[] { String.valueOf(record.getId())});
     }
 
@@ -62,7 +62,6 @@ public class DBRecords {
         String title = mCursor.getString(NUM_COLUMN_TITLE);
         String text = mCursor.getString(NUM_COLUMN_TEXT);
         long date = mCursor.getLong(NUM_COLUMN_DATE);
-        //mCursor.close();
         return new Record(id, title, text, date);
     }
 
@@ -80,7 +79,6 @@ public class DBRecords {
                 arr.add(new Record(id, title, text, date));
             } while (mCursor.moveToNext());
         }
-        //mCursor.close();
         return arr;
     }
 
