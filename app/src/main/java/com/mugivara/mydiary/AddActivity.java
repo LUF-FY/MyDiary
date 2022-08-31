@@ -5,21 +5,14 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import kotlin.jvm.Throws;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+
 
 public class AddActivity extends AppCompatActivity {
     private static final String TAG = "AddActivity";
@@ -49,9 +42,6 @@ public class AddActivity extends AppCompatActivity {
         tvDate=(TextView)findViewById(R.id.textView_Date);
 
         ibtDate= (ImageButton) findViewById(R.id.button_Date);
-        btSave=(Button)findViewById(R.id.button_Save);
-        btCancel=(Button)findViewById(R.id.button_Chanel);
-
 
         if(getIntent().hasExtra("Record")){
             Record record=(Record)getIntent().getSerializableExtra("Record");
@@ -122,9 +112,6 @@ public class AddActivity extends AppCompatActivity {
         Record record=new Record(MyRecordID, etTitle.getText().toString(),etText.getText().toString(), calendar.getTimeInMillis());
         Intent intent=getIntent();
         intent.putExtra("Record",record);
-
-        //Toast.makeText(v.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
-
         setResult(RESULT_OK,intent);
         finish();
     }

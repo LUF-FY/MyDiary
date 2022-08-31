@@ -15,4 +15,5 @@
     <string name="add_activity_date_hint">Дата</string>
     <string name="add_activity_text_hint">Текст</string>
     <string name="Button_Date">Календарь</string>
+    <string name="Submit">Подтвердить</string>
 </resources>
