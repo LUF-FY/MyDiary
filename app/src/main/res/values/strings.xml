@@ -2,12 +2,7 @@
     <string name="app_name">MyDiary</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 
 
     <string name="deleteAll">Удалить все</string>
@@ -16,4 +11,8 @@
     <string name="delete">Удалить</string>
     <string name="button_Save_text">Сохранить</string>
     <string name="Button_Chanel_Text">Отменить</string>
+    <string name="add_activity_title_hint">Заголовок</string>
+    <string name="add_activity_date_hint">Дата</string>
+    <string name="add_activity_text_hint">Текст</string>
+    <string name="Button_Date">Календарь</string>
 </resources>

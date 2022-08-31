@@ -1,5 +1,6 @@
 package com.mugivara.mydiary;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +15,13 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.mugivara.mydiary.databinding.ActivityMainBinding;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
 
     DBRecords mDBConnector;
@@ -27,6 +29,8 @@ public class MainActivity extends Activity {
     ListView mListView;
     Cursor cursor;
     myListAdapter myAdapter;
+
+    androidx.appcompat.widget.Toolbar mToolbar;
 
     int ADD_ACTIVITY = 0;
     int UPDATE_ACTIVITY = 1;
@@ -43,7 +47,8 @@ public class MainActivity extends Activity {
         mListView.setAdapter(myAdapter);
         registerForContextMenu(mListView);
 
-
+        mToolbar = findViewById(R.id.activity_main_toolbar);
+        setSupportActionBar(mToolbar);
         findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +57,7 @@ public class MainActivity extends Activity {
                 updateList();
             }
         });
+
     }
 
     @Override
@@ -102,6 +108,8 @@ public class MainActivity extends Activity {
                 return super.onContextItemSelected(item);
         }
     }
+
+
     private void updateList () {
         myAdapter.setArrayMyData(mDBConnector.selectAll());
         myAdapter.notifyDataSetChanged();
@@ -110,6 +118,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             Record record = (Record) data.getExtras().getSerializable("Record");
             if (requestCode == UPDATE_ACTIVITY)
@@ -119,37 +128,17 @@ public class MainActivity extends Activity {
             updateList();
         }
     }
-    /*
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
+/*
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
-    }*/
-
+    }
+*/
     class myListAdapter extends BaseAdapter {
         private LayoutInflater mLayoutInflater;
         private ArrayList<Record> arrayMyRecords;

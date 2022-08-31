@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
+import androidx.appcompat.app.AppCompatActivity;
 import kotlin.jvm.Throws;
 
 import java.time.LocalDate;
@@ -18,7 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class AddActivity extends Activity {
+public class AddActivity extends AppCompatActivity {
     private static final String TAG = "AddActivity";
     private Button btSave,btCancel;
     private EditText etTitle,etText;
@@ -27,12 +30,19 @@ public class AddActivity extends Activity {
     private ImageButton ibtDate;
     private long MyRecordID;
 
+    private androidx.appcompat.widget.Toolbar mToolbar;
+
 
     private Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        mToolbar = findViewById(R.id.activity_add_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         etTitle=(EditText)findViewById(R.id.editText_Title);
         etText=(EditText)findViewById(R.id.editText_Text);
@@ -83,36 +93,39 @@ public class AddActivity extends Activity {
                         DateConverter.setInitialDate(context, tvDate, calendar);
                     }
         });
-
-
-
-
-        btSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Record record=new Record(MyRecordID, etTitle.getText().toString(),etText.getText().toString(), calendar.getTimeInMillis());
-                Intent intent=getIntent();
-                intent.putExtra("Record",record);
-
-                //Toast.makeText(v.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
-
-                setResult(RESULT_OK,intent);
-                finish();
-
-            }
-        });
-
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     @Override
     protected void onStart() {
 
         super.onStart();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.submit:
+                saveAndExit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void saveAndExit() {
+        Record record=new Record(MyRecordID, etTitle.getText().toString(),etText.getText().toString(), calendar.getTimeInMillis());
+        Intent intent=getIntent();
+        intent.putExtra("Record",record);
+
+        //Toast.makeText(v.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
+
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }

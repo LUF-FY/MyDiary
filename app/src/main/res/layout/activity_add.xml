@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="4dp">
+              >
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/activity_add_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:titleTextColor="@color/black"
+    />
 
     <LinearLayout
+            android:layout_below="@id/activity_add_toolbar"
+            android:id="@+id/input_titleAndDate"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp">
         <EditText
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Title"
+                android:hint="@string/add_activity_title_hint"
                 android:id="@+id/editText_Title"
+                android:minHeight="64dp"
                 android:layout_weight="1"/>
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="58dp"
                 android:layout_weight="1">
             <TextView
-                    android:hint="Date"
+                    android:hint="@string/add_activity_date_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -37,43 +50,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:maxWidth="58dp"
                     android:id="@+id/button_Date"
-                    android:src="@drawable/ic_calendar">
+                    android:src="@drawable/ic_calendar"
+                    android:background="?attr/colorPrimary"
+                    android:contentDescription="@string/Button_Date"
+                    >
             </ImageButton>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
+    <EditText
+            android:layout_below="@id/input_titleAndDate"
+            android:hint="@string/add_activity_text_hint"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="12">
-        <EditText
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:gravity="start|top"
+            android:id="@+id/editText_Text"
+            android:layout_marginHorizontal="2dp"
+    />
 
-                android:hint="Text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textMultiLine"
-                android:gravity="start|top"
-                android:id="@+id/editText_Text"
-                />
-    </LinearLayout>
-    <RelativeLayout android:layout_width="match_parent"
-                  android:layout_height="0dp"
-                  android:layout_weight="1">
-        <Button
-                android:id="@+id/button_Chanel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/Button_Chanel_Text"
-                android:layout_alignParentLeft="true"/>
-        <Button
-                android:id="@+id/button_Save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/button_Save_text"
-                android:layout_alignParentRight="true"
-        />
-    </RelativeLayout>
-
-
-</LinearLayout>
+</RelativeLayout>
