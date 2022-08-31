@@ -66,7 +66,7 @@ public class DBRecords {
     }
 
     public ArrayList<Record> selectAll() {
-        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, null, null, null);
+        Cursor mCursor = mDataBase.query(TABLE_NAME, null, null, null, COLUMN_DATE, null, null);
 
         ArrayList<Record> arr = new ArrayList<Record>();
         mCursor.moveToFirst();
