@@ -27,7 +27,7 @@ public class AddActivity extends Activity {
     private long MyRecordID;
 
 
-    private Calendar calendar;
+    private Calendar calendar = Calendar.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +38,9 @@ public class AddActivity extends Activity {
         tvDate=(TextView)findViewById(R.id.textView_Date);
 
         ibtDate= (ImageButton) findViewById(R.id.button_Date);
-
         btSave=(Button)findViewById(R.id.button_Save);
         btCancel=(Button)findViewById(R.id.button_Chanel);
 
-        calendar = Calendar.getInstance(TimeZone.getDefault());
-        calendar.setTime(new Date());
 
         if(getIntent().hasExtra("Record")){
             Record record=(Record)getIntent().getSerializableExtra("Record");
@@ -51,6 +48,7 @@ public class AddActivity extends Activity {
             etText.setText(record.getText());
             //tvDate.setText(DateConverter.fromMilicToDate(record.getDate()));
             MyRecordID=record.getId();
+
             calendar.setTime(new Date(record.getDate()));
 
         }
@@ -62,11 +60,11 @@ public class AddActivity extends Activity {
 
 
 
-        ibtDate.setOnClickListener(
-                new View.OnClickListener() {
+        ibtDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        /*DatePickerDialog d = new DatePickerDialog(context,
+                        Context context = v.getContext();
+                        new DatePickerDialog(context,
                                 new DatePickerDialog.OnDateSetListener() {
                                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                                         calendar.set(Calendar.YEAR, year);
@@ -78,16 +76,11 @@ public class AddActivity extends Activity {
                                 calendar.get(Calendar.YEAR),
                                 calendar.get(Calendar.MONTH),
                                 calendar.get(Calendar.DAY_OF_MONTH)
-                        );*/
-                        DatePickerDialog d = new DatePickerDialog(context);
-                        if (d != null)
-                            d.show();
-
+                        ).show();
 //                        Log.d(AddActivity.TAG, context.toString());
-//                        setInitialDate();
+                        setInitialDate();
                     }
-                }
-        );
+        });
 
 
 
