@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
             if (requestCode == UPDATE_ACTIVITY)
                 mDBConnector.update(record);
             else
-                mDBConnector.insert(record.getTitle(), record.getText(), record.getDate());
+                mDBConnector.insert(record.getTitle(), record.getText(), record.getDateInMillis());
             updateList();
         }
     }
@@ -199,7 +199,7 @@ public class MainActivity extends Activity {
             vText.setText(record.getText());
 
             //Toast.makeText(parent.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
-            DateConverter.setInitialDate(parent.getContext(), vDate, record.getDate());
+            DateConverter.setInitialDate(parent.getContext(), vDate, record.getCalendar());
 
             //Toast.makeText(parent.getContext(), record.getDate() + ", " + String.valueOf(new Date(record.getDate()).getTime()) + ", " + calendar.getTimeInMillis(), Toast.LENGTH_LONG).show();
             return convertView;

@@ -43,7 +43,7 @@ public class DBRecords {
         ContentValues cv=new ContentValues();
         cv.put(COLUMN_TITLE, record.getTitle());
         cv.put(COLUMN_TEXT, record.getText());
-        cv.put(COLUMN_DATE, record.getDate());
+        cv.put(COLUMN_DATE, record.getDateInMillis());
         return mDataBase.update(TABLE_NAME, cv, COLUMN_ID + " = ?",new String[] { String.valueOf(record.getId())});
     }
 

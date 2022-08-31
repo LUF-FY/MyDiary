@@ -28,7 +28,7 @@ public class AddActivity extends Activity {
     private long MyRecordID;
 
 
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +50,12 @@ public class AddActivity extends Activity {
             //tvDate.setText(DateConverter.fromMilicToDate(record.getDate()));
             MyRecordID=record.getId();
 
-            calendar.setTime(new Date(record.getDate()));
-
+//            calendar.setTime(new Date(record.getDate()));
+            calendar = record.getCalendar();
         }
         else
         {
+            calendar = Calendar.getInstance();
             MyRecordID=-1;
         }
         DateConverter.setInitialDate(context, tvDate, calendar);

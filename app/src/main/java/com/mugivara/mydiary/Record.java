@@ -9,22 +9,24 @@ public class Record implements Serializable {
     private long id;
     private String title;
     private String text;
-    private Calendar calendar;
+    private Date date;
 
 
     public Record(long id, String title, String text) {
         this.id = id;
         this.title = title;
         this.text = text;
-        this.calendar = Calendar.getInstance();
+        this.date = new Date();
     }
 
     public Record(long id, String title, String text, Date date) {
-        setCalendarDate(date);
+        this(id,title,text);
+        setDate(date);
     }
 
     public Record(long id, String title, String text, long millis) {
-        setCalendarMilic(millis);
+        this(id,title,text);
+        setDateMillis(millis);
     }
 
     public long getId() {
@@ -49,18 +51,20 @@ public class Record implements Serializable {
     }
 
     public Calendar getCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
         return calendar;
     }
-    public long getCalendarInMillis() {
-        return calendar.getTimeInMillis();
+    public long getDateInMillis() {
+        return date.getTime();
     }
 
-    public void setCalendarDate(Date date) {
-        this.calendar.setTime(date);
+    public void setDate(Date date) {
+        this.date = new Date();
     }
 
-    public void setCalendarMilic(long milic) {
-        setCalendarDate(new Date(milic));
+    public void setDateMillis(long millis) {
+        this.date = new Date(millis);
     }
 
 }
