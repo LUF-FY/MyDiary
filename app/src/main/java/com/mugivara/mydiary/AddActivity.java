@@ -26,8 +26,7 @@ public class AddActivity extends Activity {
     private ImageButton ibtDate;
     private long MyRecordID;
 
-
-    private Calendar calendar = Calendar.getInstance();
+    private Calendar calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,15 +48,17 @@ public class AddActivity extends Activity {
             //tvDate.setText(DateConverter.fromMilicToDate(record.getDate()));
             MyRecordID=record.getId();
 
-            calendar.setTime(new Date(record.getDate()));
+            calendar = record.getCalendar();
 
         }
         else
         {
+            calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
             MyRecordID=-1;
         }
-        setInitialDate();
-
+        DateConverter.setInitialDate(context, tvDate, calendar);
+//        setInitialDate();
 
 
         ibtDate.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +71,8 @@ public class AddActivity extends Activity {
                                         calendar.set(Calendar.YEAR, year);
                                         calendar.set(Calendar.MONTH, monthOfYear);
                                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                        setInitialDate();
+                                        DateConverter.setInitialDate(context, tvDate, calendar);
+//                                        setInitialDate();
                                     }
                                 },
                                 calendar.get(Calendar.YEAR),
@@ -78,7 +80,9 @@ public class AddActivity extends Activity {
                                 calendar.get(Calendar.DAY_OF_MONTH)
                         ).show();
 //                        Log.d(AddActivity.TAG, context.toString());
-                        setInitialDate();
+                        DateConverter.setInitialDate(context, tvDate, calendar);
+
+//                        setInitialDate();
                     }
         });
 
@@ -113,7 +117,7 @@ public class AddActivity extends Activity {
     }
 
     private void setInitialDate(){
-        tvDate.setText(DateUtils.formatDateTime(this,
+        tvDate.setText(DateUtils.formatDateTime(context,
                 calendar.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }

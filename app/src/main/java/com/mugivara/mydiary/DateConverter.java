@@ -1,5 +1,10 @@
 package com.mugivara.mydiary;
 
+import android.content.Context;
+import android.text.format.DateUtils;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,9 +17,6 @@ public class DateConverter {
 
     private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-    static {
-        dateFormat.setLenient(false);
-    }
 
     public static String fromMilicToDate(long milic){
         Date date = new Date(milic);
@@ -28,5 +30,18 @@ public class DateConverter {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void setInitialDate(Context context, TextView tv, Calendar calendar){
+        tv.setText(DateUtils.formatDateTime(context,
+                calendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+    }
+
+    public static void setInitialDate(Context context, TextView tv, long date){
+        tv.setText(DateUtils.formatDateTime(context,
+                date,
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+
     }
 }
