@@ -61,7 +61,7 @@ public class DBRecords {
         mCursor.moveToFirst();
         String title = mCursor.getString(NUM_COLUMN_TITLE);
         String text = mCursor.getString(NUM_COLUMN_TEXT);
-        long date = mCursor.getInt(NUM_COLUMN_DATE);
+        long date = mCursor.getLong(NUM_COLUMN_DATE);
         return new Record(id, title, text, date);
     }
 
@@ -75,7 +75,7 @@ public class DBRecords {
                 long id = mCursor.getLong(NUM_COLUMN_ID);
                 String title = mCursor.getString(NUM_COLUMN_TITLE);
                 String text = mCursor.getString(NUM_COLUMN_TEXT);
-                long date = mCursor.getInt(NUM_COLUMN_DATE);
+                long date = mCursor.getLong(NUM_COLUMN_DATE);
                 arr.add(new Record(id, title, text, date));
             } while (mCursor.moveToNext());
         }

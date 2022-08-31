@@ -1,5 +1,9 @@
 package com.mugivara.mydiary;
 
+import android.content.Context;
+import android.text.format.DateUtils;
+import android.widget.TextView;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,23 +14,19 @@ import java.util.TimeZone;
 
 public class DateConverter {
 
-    private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-    static {
-        dateFormat.setLenient(false);
+    public static void setInitialDate(Context context, TextView tv, Calendar calendar){
+        tv.setText(DateUtils.formatDateTime(context,
+                calendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
-    public static String fromMilicToDate(long milic){
-        Date date = new Date(milic);
-        return dateFormat.format(date);
+    public static void setInitialDate(Context context, TextView tv, long Millis){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(Millis);
+
+        tv.setText(DateUtils.formatDateTime(context,
+                calendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
     }
 
-    public static long fromDateToMilic(String dateString){
-        try {
-            Date date = dateFormat.parse(dateString);
-            return date.getTime();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

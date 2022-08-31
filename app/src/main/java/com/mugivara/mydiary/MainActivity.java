@@ -197,7 +197,11 @@ public class MainActivity extends Activity {
             Record record = arrayMyRecords.get(position);
             vTitle.setText(record.getTitle());
             vText.setText(record.getText());
-            vDate.setText(String.valueOf(record.getDate()));
+
+            //Toast.makeText(parent.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
+            DateConverter.setInitialDate(parent.getContext(), vDate, record.getDate());
+
+            //Toast.makeText(parent.getContext(), record.getDate() + ", " + String.valueOf(new Date(record.getDate()).getTime()) + ", " + calendar.getTimeInMillis(), Toast.LENGTH_LONG).show();
             return convertView;
         }
     } // end myAdapter

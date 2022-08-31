@@ -1,6 +1,7 @@
 package com.mugivara.mydiary;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Record implements Serializable {
@@ -8,20 +9,22 @@ public class Record implements Serializable {
     private long id;
     private String title;
     private String text;
-    private long date;
+    private Calendar calendar;
 
-    public Record(long id, String title, String text, Date date) {
+
+    public Record(long id, String title, String text) {
         this.id = id;
         this.title = title;
         this.text = text;
-        this.date = date.getTime();
+        this.calendar = Calendar.getInstance();
     }
 
-    public Record(long id, String title, String text, long date) {
-        this.id = id;
-        this.title = title;
-        this.text = text;
-        this.date = date;
+    public Record(long id, String title, String text, Date date) {
+        setCalendarDate(date);
+    }
+
+    public Record(long id, String title, String text, long millis) {
+        setCalendarMilic(millis);
     }
 
     public long getId() {
@@ -45,15 +48,19 @@ public class Record implements Serializable {
         this.text = text;
     }
 
-    public long getDate() {
-        return date;
+    public Calendar getCalendar() {
+        return calendar;
+    }
+    public long getCalendarInMillis() {
+        return calendar.getTimeInMillis();
     }
 
-    public void setDate(Date date) {
-        this.date = date.getTime();
+    public void setCalendarDate(Date date) {
+        this.calendar.setTime(date);
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setCalendarMilic(long milic) {
+        setCalendarDate(new Date(milic));
     }
+
 }
