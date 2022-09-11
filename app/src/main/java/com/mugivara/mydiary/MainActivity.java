@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import com.google.android.material.snackbar.Snackbar;
@@ -17,9 +19,16 @@ import androidx.navigation.ui.NavigationUI;
 import com.mugivara.mydiary.databinding.ActivityMainBinding;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static java.nio.file.StandardOpenOption.APPEND;
+import static java.nio.file.StandardOpenOption.CREATE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -74,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 mDBConnector.deleteAll();
                 updateList();
                 return true;
+            case R.id.uploadInFile:
+                uploadInFile(mDBConnector.selectAll());
+                return true;
             case R.id.exit:
                 finish();
                 return true;
@@ -81,6 +92,33 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    private static final String TAG = "MyActivity";
+
+
+    private void uploadInFile (ArrayList<Record> listRecords) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String s ="";
+                for (Record r : listRecords) {
+                    s += r.toString() + '\n';
+                }
+                try {
+                    File f = new File(getApplicationContext().getFilesDir().getPath() + "/MyDiaryRecords.txt");
+                    FileWriter writer = new FileWriter(f, false);
+                    writer.write(s);
+                    writer.flush();
+                    Log.i(TAG, "uploadInFile : " + f.toString());
+                }
+                catch(IOException ex){
+
+                    System.out.println(ex.getMessage());
+                }
+
+            }
+        }).start();
+    }
+
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -115,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
         myAdapter.notifyDataSetChanged();
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -129,16 +168,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-/*
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-*/
     class myListAdapter extends BaseAdapter {
         private LayoutInflater mLayoutInflater;
         private ArrayList<Record> arrayMyRecords;
@@ -187,10 +216,7 @@ public class MainActivity extends AppCompatActivity {
             vTitle.setText(record.getTitle());
             vText.setText(record.getText());
 
-            //Toast.makeText(parent.getContext(), String.valueOf(record.getDate()), Toast.LENGTH_LONG).show();
             DateConverter.setInitialDate(parent.getContext(), vDate, record.getCalendar());
-
-            //Toast.makeText(parent.getContext(), record.getDate() + ", " + String.valueOf(new Date(record.getDate()).getTime()) + ", " + calendar.getTimeInMillis(), Toast.LENGTH_LONG).show();
             return convertView;
         }
     } // end myAdapter

@@ -4,7 +4,7 @@
     <!-- Strings used for fragments for navigation -->
 
 
-
+    <string name="uploadInFile">Выгрузить в файл</string>
     <string name="deleteAll">Удалить все</string>
     <string name="exit">Выход</string>
     <string name="edit">Редактировать</string>

@@ -3,6 +3,10 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.mugivara.mydiary.MainActivity">
 
+    <item android:id="@+id/uploadInFile"
+          android:title="@string/uploadInFile"
+          android:icon="@drawable/ic_delete"/>
+
     <item android:id="@+id/deleteAll"
           android:title="@string/deleteAll"
           android:icon="@drawable/ic_delete"/>

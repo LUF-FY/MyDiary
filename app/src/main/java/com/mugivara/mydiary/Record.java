@@ -67,4 +67,8 @@ public class Record implements Serializable {
         this.date = new Date(millis);
     }
 
+    @Override
+    public String toString() {
+        return title + '\n' + date + '\n' + text + '\n';
+    }
 }
